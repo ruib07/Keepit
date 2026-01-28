@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "rootDir": "src",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noEmitOnError": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
