@@ -1,0 +1,78 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img
+      src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+      alt="KeepIt Logo"
+      class="mx-auto h-12 w-auto"
+    />
+    <h2 class="mt-8 text-center text-3xl font-extrabold tracking-tight text-slate-900">
+      Bem-vindo de volta
+    </h2>
+    <p class="mt-2 text-center text-sm text-slate-500">
+      Introduza as suas credenciais para aceder à plataforma.
+    </p>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+    <div
+      class="bg-white px-8 py-10 shadow-xl shadow-slate-200/50 rounded-2xl border border-slate-100"
+    >
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-semibold text-slate-700">Email</label>
+          <div class="mt-2">
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="exemplo@email.com"
+              class="block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+            />
+            @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
+              <p class="mt-2 text-xs font-medium text-rose-500">
+                Por favor, insira um email válido.
+              </p>
+            }
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-semibold text-slate-700"
+              >Password</label
+            >
+          </div>
+          <div class="mt-2">
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="••••••••"
+              class="block w-full rounded-lg border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+            />
+          </div>
+        </div>
+
+        <div>
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid"
+            class="flex w-full justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Entrar no KeepIt
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <p class="mt-8 text-center text-sm text-slate-600">
+      Ainda não tem conta?
+      <a
+        routerLink="/auth/register"
+        class="font-bold text-indigo-600 hover:text-indigo-500 transition-colors"
+      >
+        Registe-se aqui
+      </a>
+    </p>
+  </div>
+</div>

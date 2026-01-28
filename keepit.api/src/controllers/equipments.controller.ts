@@ -23,6 +23,28 @@ export class EquipmentsController {
       id: createdCategory.id,
     });
   }
+  static async assign(req: Request, res: Response) {
+    const equipmentId = req.params.id as string;
+    const { targetUserId, adminId } = req.body;
+
+    if (!targetUserId || !adminId) {
+      res
+        .status(400)
+        .send({ message: "targetUserId and adminId are required." });
+      return;
+    }
+
+    const updatedEquipment = await new EquipmentService().assignToUser(
+      equipmentId,
+      targetUserId,
+      adminId,
+    );
+
+    res.send({
+      message: "Equipment assigned successfully.",
+      data: updatedEquipment,
+    });
+  }
 
   static async update(req: Request, res: Response) {
     const equipmentId = req.params.id as string;
