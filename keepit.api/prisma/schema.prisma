@@ -7,22 +7,15 @@ datasource db {
   provider = "postgresql"
 }
 
-enum EquipmentStatus {
-  AVAILABLE
-  ASSIGNED
-  MAINTENANCE
-  RETIRED
-}
-
 model User {
   id           String      @id @default(uuid())
   name         String
   email        String      @unique
-  password     String
   department   String
-  equipments   Equipment[] @relation("UserEquipments")
-  assignedLogs Equipment[] @relation("AdminAssignments")
   createdAt    DateTime    @default(now())
+  password     String
+  assignedLogs Equipment[] @relation("AdminAssignments")
+  equipments   Equipment[] @relation("UserEquipments")
 }
 
 model Equipment {
@@ -30,13 +23,20 @@ model Equipment {
   name         String
   category     String
   serialNumber String          @unique
-  status       EquipmentStatus @default(AVAILABLE)   
+  status       EquipmentStatus @default(AVAILABLE)
   purchaseDate DateTime        @default(now())
   price        Float
   createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt 
+  updatedAt    DateTime        @updatedAt
   assignedToId String?
-  user         User?           @relation("UserEquipments", fields: [assignedToId], references: [id])
   assignedById String?
   assignedBy   User?           @relation("AdminAssignments", fields: [assignedById], references: [id])
+  user         User?           @relation("UserEquipments", fields: [assignedToId], references: [id])
+}
+
+enum EquipmentStatus {
+  AVAILABLE
+  ASSIGNED
+  MAINTENANCE
+  RETIRED
 }

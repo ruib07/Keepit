@@ -1,1 +1,91 @@
-<p>equipments works!</p>
+<div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+  <table class="w-full text-left text-sm border-collapse">
+    <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600">
+      <tr>
+        <th scope="col" class="px-6 py-4 font-semibold">Name</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Serial Number</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Category</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Status</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Price</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Purchase Date</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Assigned By</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Assigned To</th>
+        <th scope="col" class="px-6 py-4 font-semibold">Created At</th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-slate-100 text-slate-700">
+      @for (item of pagedEquipments(); track item.id) {
+      <tr class="hover:bg-slate-50 transition-colors group">
+        <th scope="row" class="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">
+          {{ item.name }}
+        </th>
+        <td class="px-6 py-4 text-slate-500">
+          {{ item.serialNumber }}
+        </td>
+        <td class="px-6 py-4">
+          <span
+            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+            {{ item.category }}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <span
+            [class]="'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ' + 
+              (item.status === 'AVAILABLE' ? 'bg-green-50 text-green-700 ring-green-600/20' : 'bg-yellow-50 text-yellow-700 ring-yellow-600/20')">
+            {{ item.status }}
+          </span>
+        </td>
+        <td class="px-6 py-4 font-semibold text-slate-900">
+          {{ item.price }}€
+        </td>
+        <td class="px-6 py-4">
+          <span
+            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+            {{ item.purchaseDate | date: 'dd/MM/yyyy HH:mm' }}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <span
+            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+            {{ item.assignedById }}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <span
+            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+            {{ item.assignedToId }}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <span
+            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+            {{ item.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+          </span>
+        </td>
+      </tr>
+      } @empty {
+      <tr>
+        <td colspan="5" class="px-6 py-10 text-center text-slate-500">
+          No equipment found.
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="flex items-center justify-between border-t border-slate-200 bg-slate-50/50 px-6 py-3">
+    <span class="text-xs text-slate-500">
+      Page {{ currentPage() }} of {{ totalPages() }}
+    </span>
+    <div class="inline-flex gap-2">
+      <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1"
+        class="rounded-md border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed">
+        Previous
+      </button>
+      <button (click)="goToPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()"
+        class="rounded-md border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed">
+        Next
+      </button>
+    </div>
+  </div>
+</div>
